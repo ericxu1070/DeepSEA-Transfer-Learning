@@ -10,22 +10,30 @@ another species?** We measure this as the gap in held-out performance between a 
 and a model trained from scratch. Mouse is the first target; the pipeline is designed to extend to more
 distant genomes so transfer can be studied as a function of evolutionary distance.
 
-This is a final project for a machine-learning-in-genomics course; the deliverable is a 4-page
+This is a final project for a machine-learning-in-genomics course; the deliverable is a
 NeurIPS-style report.
 
 ## The three experiments
 
-The repository contains three notebooks that are **identical except for their config cell**. The
-contrast between them is the result:
+A single notebook, `Deepsea_All_Conditions_Mouse.ipynb`, defines the model, data split, metrics, and
+plots **once** and loops over the three conditions, so they share identical code by construction and
+cannot drift apart. The contrast between the conditions is the result:
 
-| Notebook | Condition | Description |
-|---|---|---|
-| `Deepsea_Transfer_Learning_Mouse.ipynb` | **Transfer** | Human conv trunk + fresh head, fine-tuned on mouse |
-| `Deepsea_Scratch_Learning_Mouse.ipynb` | **From scratch** | Same architecture, randomly initialized, trained on mouse |
-| `Deepsea_prediction_baseline_mouse.ipynb` | **Zero-shot baseline** | Human trunk + untrained head, evaluated without fine-tuning |
+| Condition | Human weights | Epochs | Description |
+|---|---|---|---|
+| **Transfer** | yes | 10 | Human conv trunk + fresh head, fine-tuned on mouse |
+| **From scratch** | no | 10 | Same architecture, randomly initialized, trained on mouse |
+| **Zero-shot baseline** | yes | 0 | Human trunk + untrained head, evaluated without fine-tuning |
 
 The **transfer signal** is the median-AUROC improvement of the transfer model over the from-scratch and
-baseline models.
+baseline models. Beyond the head-to-head numbers, the notebook also produces cross-condition comparison
+figures (paired per-feature scatter, convergence and loss-curve overlays, per-assay-type and per-biosample
+breakdowns) and a **sample-efficiency sweep** that retrains transfer and scratch on 1%/5%/10% data
+fractions — transfer's data efficiency is the strongest part of the cross-species story.
+
+> This replaces the three near-identical notebooks (`Deepsea_Transfer_Learning_Mouse`,
+> `Deepsea_Scratch_Learning_Mouse`, `Deepsea_prediction_baseline_mouse`) that previously held one
+> condition each.
 
 ## Method
 
@@ -53,8 +61,9 @@ to run in Colab rather than locally.
 
 ## How to run
 
-Open a notebook in Google Colab (GPU runtime, High-RAM recommended) and run the cells top to bottom.
-Cells 3–4 build the dataset by invoking the data script:
+Open `Deepsea_All_Conditions_Mouse.ipynb` in Google Colab (GPU runtime, High-RAM recommended) and run
+the cells top to bottom. Step 1 builds the dataset by invoking the data script (it clones the repo,
+dry-runs the query, then downloads only if the dataset is not already present):
 
 ```bash
 # Dry-run first: prints how many (biosample, target) features actually exist on ENCODE.
@@ -68,8 +77,10 @@ python download_mouse_encode.py --chroms all \
     --max-features 300 --max-samples 1000000 --skip-selene
 ```
 
-This writes `mouse_encode_data/mouse_demo.npz`, which the notebooks load. To reproduce all three
-conditions, run each notebook (they share the same dataset).
+This writes `mouse_encode_data/mouse_demo.npz`, which the notebook loads. All three conditions run in
+one pass of the notebook. By default it mounts Google Drive and saves every model's weights, metrics,
+and figures under `MyDrive/deepsea_transfer_runs` (set `MOUNT_DRIVE = False` to keep results on the
+Colab VM only).
 
 > The builder queries **live ENCODE and UCSC** endpoints, so the exact feature set depends on what is
 > released at run time. Always `--dry-run` first and read the printed feature count.
@@ -78,18 +89,33 @@ conditions, run each notebook (they share the same dataset).
 
 ```
 Mouse Transfer Learning/
-├── download_mouse_encode.py              # ENCODE → mm10 multi-task dataset builder
-├── Deepsea_Transfer_Learning_Mouse.ipynb # transfer (human init + fine-tune)
-├── Deepsea_Scratch_Learning_Mouse.ipynb  # from-scratch ablation
-├── Deepsea_prediction_baseline_mouse.ipynb # zero-shot baseline
-└── Figures/                              # exported result plots used in the report
+├── download_mouse_encode.py               # ENCODE → mm10 multi-task dataset builder
+├── Deepsea_All_Conditions_Mouse.ipynb     # all three conditions + comparisons in one notebook
+├── Figures/                               # the two original per-feature result plots
+└── deepsea_transfer_runs/                 # notebook outputs: weights, metrics, and comparison plots
 ```
 
 ## Results
 
-Result figures are in `Mouse Transfer Learning/Figures/`:
+On held-out chr19 (median over 132 evaluable features):
 
-- `transfer_learning_mouse.png` — per-feature AUROC/AUPRC for the transfer model
-- `learning_from_scratch_mouse.png` — the from-scratch ablation
-- `baseline_human_weights_predicting_mouse.png` — the zero-shot baseline
-- `training_curves.png` — training/validation loss curves
+| Condition | Trunk init | Fine-tuned | Median AUROC | Median AUPRC |
+|---|---|---|---|---|
+| Baseline | human | no | 0.496 | 0.018 |
+| From scratch | random | yes | 0.865 | 0.230 |
+| Transfer | human | yes | **0.877** | **0.250** |
+
+The headline finding is that transfer is mostly an **efficiency** gain: the human-initialized model
+reaches its best validation loss far sooner (epoch 5 vs 12), matches from-scratch accuracy after a single
+epoch, and wins on 115 of 133 features, with the largest gains on rare targets. The final-accuracy gap
+itself is small, so a from-scratch model given enough data could likely catch up. (Numbers shift on
+re-runs because the dataset is built from live ENCODE data.)
+
+Figures used in the report come from two places:
+
+- `Mouse Transfer Learning/Figures/` — `training_curves.png` (loss curves) and `transfer_learning_mouse.png`
+  (per-feature AUROC of the transfer model).
+- `Mouse Transfer Learning/deepsea_transfer_runs/` — the cross-condition comparison plots:
+  `compare_convergence.png` (AUROC per epoch), `compare_paired_auroc.png` (per-feature transfer vs scratch),
+  `compare_by_assay.png` (median AUROC by assay type), and `compare_gain_vs_rarity.png` (transfer gain vs
+  feature rarity). This folder also holds per-condition plots, saved weights, and metrics.

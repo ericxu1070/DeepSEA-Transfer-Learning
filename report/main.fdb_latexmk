@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1780818307.68501 "main.aux" "main.bbl" "main" 1780818308.69658 0
+["bibtex main"] 1780830882.53737 "main.aux" "main.bbl" "main" 1780830883.98627 0
   "./references.bib" 1780818228 325 d40078ec9ff81dcde3054046a5119c7b ""
   "c:/Users/ericx/AppData/Roaming/TinyTeX/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1759886007 26816 ffe5423d2019860bad9f54bc402fac15 ""
-  "main.aux" 1780818308 3340 d1950c0c9a4b6d4627c5df6195589b10 "pdflatex"
+  "main.aux" 1780830883 6543 733a2fc84a4db8b4536c918889180ebb "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1780818307.73448 "main.tex" "main.pdf" "main" 1780818308.69731 0
+["pdflatex"] 1780830882.62134 "main.tex" "main.pdf" "main" 1780830883.98708 0
   "c:/Users/ericx/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc" 1759886008 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/Users/ericx/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm" 1759886010 4524 6bce29db5bc272ba5f332261583fee9c ""
   "c:/Users/ericx/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/adobe/times/ptmb8t.tfm" 1759886010 6880 f19b8995b61c334d78fc734065f6b4d4 ""
@@ -53,6 +53,7 @@
   "c:/Users/ericx/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty" 1759886021 6078 f1cb470c9199e7110a27851508ed7a5c ""
   "c:/Users/ericx/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty" 1759886021 13886 d1306dcf79a944f6988e688c1785f9ce ""
   "c:/Users/ericx/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty" 1759886021 46885 8953c67ffba03252c6090aa19568b8ba ""
+  "c:/Users/ericx/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/float/float.sty" 1759886021 6749 16d2656a1984957e674b149555f1ea1d ""
   "c:/Users/ericx/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/geometry/geometry.sty" 1759886021 41601 9cf6c5257b1bc7af01a58859749dd37a ""
   "c:/Users/ericx/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg" 1759886021 1224 978390e9c2234eab29404bc21b268d1e ""
   "c:/Users/ericx/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def" 1759886021 19626 23e2822b9b2b5005f4c549ca98b9334d ""
@@ -80,12 +81,16 @@
   "c:/Users/ericx/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk" 1780818305 20008 3c360cb22544191bd33e6b12d76bcb5d ""
   "c:/Users/ericx/AppData/Roaming/TinyTeX/texmf-var/web2c/pdftex/pdflatex.fmt" 1759886024 2228202 6c028f371dd189ecc16b59f51421c073 ""
   "c:/Users/ericx/AppData/Roaming/TinyTeX/texmf.cnf" 1759886053 956 b1b02114e0ad806b8e5e4bf93f21abb8 ""
+  "figures/compare_by_assay.png" 1780829718 34071 28464d849370be0c2efeb5dc92ae33fd ""
+  "figures/compare_convergence.png" 1780829718 49148 81d35e6b74b1a0f6c39037df72842cb5 ""
+  "figures/compare_gain_vs_rarity.png" 1780829718 65862 11858618d674bbd189ce48167bdbc561 ""
+  "figures/compare_paired_auroc.png" 1780829718 94244 b95dcadd969c9e7517d9affb984b863f ""
   "figures/training_curves.png" 1780818203 135962 edc97ec5a43547e9d382e3758b4061f0 ""
   "figures/transfer_learning_mouse.png" 1780818203 64760 62e2c03b50563588c79deabe8c37f04f ""
-  "main.aux" 1780818308 3340 d1950c0c9a4b6d4627c5df6195589b10 "pdflatex"
-  "main.bbl" 1780818307 533 6ffcfc84e4df0428a7dcf3adc3474c79 "bibtex main"
-  "main.out" 1780818308 352 4203494517c7db6a6da8932134a98ba4 "pdflatex"
-  "main.tex" 1780818287 9735 e96f3aa98e41da4b0784a859e9af7f1e ""
+  "main.aux" 1780830883 6543 733a2fc84a4db8b4536c918889180ebb "pdflatex"
+  "main.bbl" 1780830882 533 6ffcfc84e4df0428a7dcf3adc3474c79 "bibtex main"
+  "main.out" 1780830883 352 4203494517c7db6a6da8932134a98ba4 "pdflatex"
+  "main.tex" 1780830871 14502 238ce74b4c406f22d52cc6f39d9e2846 ""
   "neurips_2019.sty" 1780818215 11041 b7a48a6866976c357fe02da227ce45b4 ""
   (generated)
   "main.aux"
