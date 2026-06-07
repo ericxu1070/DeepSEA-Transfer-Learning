@@ -1,0 +1,13 @@
+\begin{thebibliography}{1}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Zhou and Troyanskaya(2015)]{zhou2015deepsea}
+Jian Zhou and Olga~G. Troyanskaya.
+\newblock Predicting effects of noncoding variants with deep learning-based sequence model.
+\newblock \emph{Nature Methods}, 12\penalty0 (10):\penalty0 931--934, 2015.
+
+\end{thebibliography}
